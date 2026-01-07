@@ -74,7 +74,6 @@ export function generateSteppedGradient(
     ctx.save();
     ctx.rotate(angle);
     
-    const rotatedWidth = Math.sqrt(width * width + height * height);
     colors.forEach((color, index) => {
       ctx.fillStyle = color;
       ctx.fillRect(index * stepSize, -height, stepSize, height * 3);
