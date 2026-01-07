@@ -1,0 +1,8 @@
+export { DeadPixelTest } from './DeadPixelTest';
+export { UniformityTest } from './UniformityTest';
+export { ColorGradientTest } from './ColorGradientTest';
+export { ResponseTimeTest } from './ResponseTimeTest';
+export { ContrastTest } from './ContrastTest';
+export { BrightnessTest } from './BrightnessTest';
+export { TextClarityTest } from './TextClarityTest';
+export { ViewingAngleTest } from './ViewingAngleTest';
