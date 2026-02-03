@@ -10,6 +10,7 @@ import {
   BrightnessTest,
   TextClarityTest,
   ViewingAngleTest,
+  BurnInFixTest,
 } from './components/Tests';
 import { useFullscreen } from './hooks/useFullscreen';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
@@ -70,6 +71,7 @@ export default function App() {
       'brightness': 'brightness',
       'text-clarity': 'textClarity',
       'viewing-angle': 'viewingAngle',
+      'burn-in-fix': 'burnInFix',
     };
     resetConfig(testKeyMap[selectedTest]);
   }, [selectedTest, resetConfig]);
@@ -176,6 +178,13 @@ export default function App() {
             onShowIndicatorsChange={(showIndicators) => updateConfig('viewingAngle', { showIndicators })}
           />
         );
+      case 'burn-in-fix':
+        return (
+          <BurnInFixTest
+            settings={config.burnInFix}
+            onSettingsChange={(settings) => updateConfig('burnInFix', settings)}
+          />
+        );
     }
   };
 
@@ -218,7 +227,7 @@ export default function App() {
             <div>
               <h4 className="font-medium text-white mb-2">Navigation</h4>
               <ul className="space-y-1 text-sm">
-                <li><kbd className="bg-[#333] px-2 py-0.5 rounded">1-8</kbd> Switch tests</li>
+                <li><kbd className="bg-[#333] px-2 py-0.5 rounded">1-9</kbd> Switch tests</li>
                 <li><kbd className="bg-[#333] px-2 py-0.5 rounded">←/→</kbd> Navigate options</li>
                 <li><kbd className="bg-[#333] px-2 py-0.5 rounded">?</kbd> Show this help</li>
               </ul>
@@ -244,6 +253,7 @@ export default function App() {
               <li><kbd className="bg-[#333] px-2 py-0.5 rounded">6</kbd> Brightness</li>
               <li><kbd className="bg-[#333] px-2 py-0.5 rounded">7</kbd> Text Clarity</li>
               <li><kbd className="bg-[#333] px-2 py-0.5 rounded">8</kbd> Viewing Angle</li>
+              <li><kbd className="bg-[#333] px-2 py-0.5 rounded">9</kbd> Burn-In Prevention</li>
             </ul>
           </div>
           <div className="border-t border-[#333] pt-4 text-center">

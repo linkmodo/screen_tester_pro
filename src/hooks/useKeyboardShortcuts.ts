@@ -35,7 +35,7 @@ export function useKeyboardShortcuts(options: KeyboardShortcutsOptions) {
 
       const key = event.key;
 
-      if (key >= '1' && key <= '8') {
+      if (key >= '1' && key <= '9') {
         const index = parseInt(key) - 1;
         if (TESTS[index]) {
           onTestChange(TESTS[index].id);

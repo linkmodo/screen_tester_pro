@@ -41,6 +41,12 @@ interface TestStateConfig {
     pattern: 'checkerboard' | 'gradient';
     showIndicators: boolean;
   };
+  burnInFix: {
+    pattern: 'scrolling-bars' | 'pixel-shift' | 'wave-pattern' | 'spiral' | 'bouncing-box' | 'plasma';
+    speed: number;
+    colorCycle: boolean;
+    shiftAmount: number;
+  };
 }
 
 const defaultConfig: TestStateConfig = {
@@ -82,6 +88,12 @@ const defaultConfig: TestStateConfig = {
   viewingAngle: {
     pattern: 'checkerboard',
     showIndicators: true,
+  },
+  burnInFix: {
+    pattern: 'scrolling-bars',
+    speed: 50,
+    colorCycle: true,
+    shiftAmount: 5,
   },
 };
 

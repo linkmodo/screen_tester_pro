@@ -6,3 +6,4 @@ export { ContrastTest } from './ContrastTest';
 export { BrightnessTest } from './BrightnessTest';
 export { TextClarityTest } from './TextClarityTest';
 export { ViewingAngleTest } from './ViewingAngleTest';
+export { BurnInFixTest } from './BurnInFixTest';

@@ -76,6 +76,14 @@ export const TESTS: TestConfig[] = [
     category: 'extended',
     shortcut: '8',
   },
+  {
+    id: 'burn-in-fix',
+    name: 'Burn-In Prevention',
+    description: 'Moving patterns to reduce screen burn-in risk',
+    icon: '🔄',
+    category: 'extended',
+    shortcut: '9',
+  },
 ];
 
 export const SPEED_PRESETS = [

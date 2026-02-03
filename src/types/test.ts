@@ -6,7 +6,8 @@ export type TestType =
   | 'contrast' 
   | 'brightness' 
   | 'text-clarity' 
-  | 'viewing-angle';
+  | 'viewing-angle'
+  | 'burn-in-fix';
 
 export interface TestConfig {
   id: TestType;
@@ -71,6 +72,13 @@ export interface ViewingAngleSettings {
   showIndicators: boolean;
 }
 
+export interface BurnInFixSettings {
+  pattern: 'scrolling-bars' | 'pixel-shift' | 'wave-pattern' | 'spiral' | 'bouncing-box' | 'plasma';
+  speed: number;
+  colorCycle: boolean;
+  shiftAmount: number;
+}
+
 export type TestSettings = 
   | DeadPixelSettings 
   | UniformitySettings 
@@ -79,4 +87,5 @@ export type TestSettings =
   | ContrastSettings
   | BrightnessSettings
   | TextClaritySettings
-  | ViewingAngleSettings;
+  | ViewingAngleSettings
+  | BurnInFixSettings;
