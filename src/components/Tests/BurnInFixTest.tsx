@@ -20,8 +20,13 @@ export function BurnInFixTest({ settings, onSettingsChange }: BurnInFixTestProps
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 
     const pattern = settings.pattern || 'scrolling-bars';
     const speed = settings.speed || 50;
@@ -71,6 +76,7 @@ export function BurnInFixTest({ settings, onSettingsChange }: BurnInFixTestProps
     animate();
 
     return () => {
+      window.removeEventListener('resize', resizeCanvas);
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
@@ -192,17 +198,47 @@ function drawWavePattern(
 ) {
   ctx.fillStyle = color;
   
-  const waveHeight = 50;
-  const frequency = 0.02;
+  const waveHeight = height / 8;
+  const frequency = 0.015;
+  const numWaves = 8;
+  const waveSpacing = height / numWaves;
   
-  for (let x = 0; x < width; x += 5) {
-    const y = height / 2 + Math.sin((x + offset) * frequency) * waveHeight;
-    ctx.fillRect(x, y - 2, 5, 4);
+  // Draw multiple overlapping horizontal waves
+  for (let wave = 0; wave < numWaves; wave++) {
+    const baseY = (wave + 0.5) * waveSpacing;
+    const phaseShift = wave * Math.PI / 4;
+    
+    ctx.beginPath();
+    for (let x = 0; x <= width; x += 2) {
+      const y = baseY + Math.sin((x + offset + phaseShift * 100) * frequency) * waveHeight;
+      if (x === 0) {
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
+    }
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = color;
+    ctx.stroke();
   }
   
-  for (let x = 0; x < width; x += 5) {
-    const y = height / 2 + Math.cos((x + offset) * frequency) * waveHeight;
-    ctx.fillRect(x, y - 2, 5, 4);
+  // Draw vertical waves
+  for (let wave = 0; wave < numWaves; wave++) {
+    const baseX = (wave + 0.5) * (width / numWaves);
+    const phaseShift = wave * Math.PI / 4;
+    
+    ctx.beginPath();
+    for (let y = 0; y <= height; y += 2) {
+      const x = baseX + Math.cos((y + offset + phaseShift * 100) * frequency) * (width / 16);
+      if (y === 0) {
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
+    }
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = color;
+    ctx.stroke();
   }
 }
 
