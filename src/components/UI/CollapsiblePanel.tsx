@@ -3,17 +3,21 @@ import { useState, useRef, useCallback, ReactNode, useEffect } from 'react';
 interface CollapsiblePanelProps {
   title: string;
   children: ReactNode;
+  autoHideInFullscreen?: boolean;
 }
 
 export function CollapsiblePanel({
   title,
   children,
+  autoHideInFullscreen = false,
 }: CollapsiblePanelProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [position, setPosition] = useState<{ x: number; y: number } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const dragOffset = useRef({ x: 0, y: 0 });
+  const hideTimeoutRef = useRef<number>();
 
   useEffect(() => {
     if (position === null && panelRef.current) {
@@ -68,6 +72,57 @@ export function CollapsiblePanel({
     };
   }, [isDragging]);
 
+  // Auto-hide in fullscreen after 5 seconds of mouse inactivity
+  useEffect(() => {
+    if (!autoHideInFullscreen) return;
+
+    const resetHideTimer = () => {
+      setIsHidden(false);
+      
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+      }
+
+      const isFullscreen = document.fullscreenElement !== null;
+      if (isFullscreen) {
+        hideTimeoutRef.current = window.setTimeout(() => {
+          setIsHidden(true);
+        }, 5000);
+      }
+    };
+
+    const handleMouseMove = () => {
+      resetHideTimer();
+    };
+
+    const handleFullscreenChange = () => {
+      if (document.fullscreenElement) {
+        resetHideTimer();
+      } else {
+        setIsHidden(false);
+        if (hideTimeoutRef.current) {
+          clearTimeout(hideTimeoutRef.current);
+        }
+      }
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    
+    // Initial check
+    if (document.fullscreenElement) {
+      resetHideTimer();
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+      }
+    };
+  }, [autoHideInFullscreen]);
+
   const positionStyle = position
     ? { left: position.x, top: position.y }
     : { left: '50%', bottom: '5rem', transform: 'translateX(-50%)' };
@@ -75,7 +130,9 @@ export function CollapsiblePanel({
   return (
     <div
       ref={panelRef}
-      className="fixed bg-black/80 backdrop-blur-sm rounded-xl shadow-2xl border border-white/10 z-50 select-none"
+      className={`fixed bg-black/80 backdrop-blur-sm rounded-xl shadow-2xl border border-white/10 z-50 select-none transition-opacity duration-300 ${
+        isHidden ? 'opacity-0 pointer-events-none' : 'opacity-100'
+      }`}
       style={positionStyle}
     >
       <div

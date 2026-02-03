@@ -79,9 +79,9 @@ export const TESTS: TestConfig[] = [
   {
     id: 'burn-in-fix',
     name: 'Burn-In Prevention',
-    description: 'Moving patterns to reduce screen burn-in risk',
-    icon: '🔄',
-    category: 'extended',
+    description: 'Protect your display with moving patterns that prevent burn-in',
+    icon: '�️',
+    category: 'core',
     shortcut: '9',
   },
 ];

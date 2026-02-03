@@ -14,6 +14,9 @@ export function Header({ onShowHelp }: HeaderProps) {
         </div>
         <h1 className="text-xl font-semibold text-white">
           Screen Tester <span className="text-[#00d9ff]">Pro</span>
+          <span className="ml-2 text-xs bg-gradient-to-r from-[#00d9ff] to-[#00ff00] text-black px-2 py-0.5 rounded-full font-bold">
+            Burn-In Prevention
+          </span>
         </h1>
       </div>
 

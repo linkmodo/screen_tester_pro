@@ -73,7 +73,7 @@ export interface ViewingAngleSettings {
 }
 
 export interface BurnInFixSettings {
-  pattern: 'scrolling-bars' | 'pixel-shift' | 'wave-pattern' | 'spiral' | 'bouncing-box' | 'plasma';
+  pattern: 'scrolling-bars' | 'pixel-shift' | 'wave-pattern' | 'spiral' | 'plasma';
   speed: number;
   colorCycle: boolean;
   shiftAmount: number;

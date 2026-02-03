@@ -62,9 +62,6 @@ export function BurnInFixTest({ settings, onSettingsChange }: BurnInFixTestProps
         case 'spiral':
           drawSpiral(ctx, canvas.width, canvas.height, offset, baseColor);
           break;
-        case 'bouncing-box':
-          drawBouncingBox(ctx, canvas.width, canvas.height, offset, baseColor);
-          break;
         case 'plasma':
           drawPlasma(ctx, canvas.width, canvas.height, offset, colorCycle);
           break;
@@ -87,7 +84,7 @@ export function BurnInFixTest({ settings, onSettingsChange }: BurnInFixTestProps
     <div className="relative w-full h-full bg-black">
       <canvas ref={canvasRef} className="absolute inset-0" />
 
-      <CollapsiblePanel title="Burn-In Prevention">
+      <CollapsiblePanel title="Burn-In Prevention" autoHideInFullscreen={true}>
         <div className="flex flex-col gap-4">
           <div>
             <label className="block text-sm font-medium mb-2">Pattern Type</label>
@@ -99,7 +96,6 @@ export function BurnInFixTest({ settings, onSettingsChange }: BurnInFixTestProps
                 { value: 'pixel-shift', label: 'Pixel Shift' },
                 { value: 'wave-pattern', label: 'Wave Pattern' },
                 { value: 'spiral', label: 'Spiral' },
-                { value: 'bouncing-box', label: 'Bouncing Box' },
                 { value: 'plasma', label: 'Plasma Effect' },
               ]}
             />
@@ -270,26 +266,6 @@ function drawSpiral(
   }
   
   ctx.stroke();
-}
-
-function drawBouncingBox(
-  ctx: CanvasRenderingContext2D,
-  width: number,
-  height: number,
-  offset: number,
-  color: string
-) {
-  const boxSize = 100;
-  const x = Math.abs(Math.sin(offset / 100)) * (width - boxSize);
-  const y = Math.abs(Math.cos(offset / 80)) * (height - boxSize);
-  
-  ctx.fillStyle = color;
-  ctx.fillRect(x, y, boxSize, boxSize);
-  
-  // Draw trail
-  ctx.globalAlpha = 0.3;
-  ctx.fillRect(x - 10, y - 10, boxSize + 20, boxSize + 20);
-  ctx.globalAlpha = 1;
 }
 
 function drawPlasma(
