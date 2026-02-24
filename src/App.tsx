@@ -97,9 +97,13 @@ export default function App() {
             autoMode={config.deadPixel.autoMode}
             interval={config.deadPixel.interval}
             isPaused={isPaused}
+            customColor={config.deadPixel.customColor}
+            useCustomColor={config.deadPixel.useCustomColor}
             onColorChange={(index) => updateConfig('deadPixel', { currentColorIndex: index })}
             onAutoModeChange={(auto) => updateConfig('deadPixel', { autoMode: auto })}
             onIntervalChange={(interval) => updateConfig('deadPixel', { interval })}
+            onCustomColorChange={(customColor) => updateConfig('deadPixel', { customColor })}
+            onUseCustomColorChange={(useCustomColor) => updateConfig('deadPixel', { useCustomColor })}
           />
         );
       case 'uniformity':
@@ -134,10 +138,12 @@ export default function App() {
             direction={config.responseTime.direction}
             showTrail={config.responseTime.showTrail}
             isPaused={isPaused}
+            objectColor={config.responseTime.objectColor}
             onSpeedChange={(speed) => updateConfig('responseTime', { speed })}
             onShapeChange={(shape) => updateConfig('responseTime', { shape })}
             onDirectionChange={(direction) => updateConfig('responseTime', { direction })}
             onShowTrailChange={(showTrail) => updateConfig('responseTime', { showTrail })}
+            onObjectColorChange={(objectColor) => updateConfig('responseTime', { objectColor })}
           />
         );
       case 'contrast':

@@ -88,7 +88,11 @@ export function ColorGradientTest({
             { value: 32, label: '32 steps' },
             { value: 64, label: '64 steps' },
             { value: 128, label: '128 steps' },
-            { value: 256, label: '256 steps (smooth)' },
+            { value: 256, label: '256 steps' },
+            { value: 512, label: '512 steps' },
+            { value: 1024, label: '1024 steps' },
+            { value: 2048, label: '2048 steps (ultra smooth)' },
+            { value: 4096, label: '4096 steps (max)' },
           ]}
         />
 

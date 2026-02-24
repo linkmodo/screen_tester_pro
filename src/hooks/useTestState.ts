@@ -6,6 +6,8 @@ interface TestStateConfig {
     currentColorIndex: number;
     autoMode: boolean;
     interval: number;
+    customColor: string;
+    useCustomColor: boolean;
   };
   uniformity: {
     color: 'white' | 'gray' | 'black';
@@ -23,6 +25,7 @@ interface TestStateConfig {
     shape: 'circle' | 'square' | 'triangle';
     direction: 'horizontal' | 'vertical' | 'diagonal' | 'circular';
     showTrail: boolean;
+    objectColor: string;
   };
   contrast: {
     gridSize: number;
@@ -54,6 +57,8 @@ const defaultConfig: TestStateConfig = {
     currentColorIndex: 0,
     autoMode: false,
     interval: 2000,
+    customColor: '#FF6600',
+    useCustomColor: false,
   },
   uniformity: {
     color: 'white',
@@ -71,6 +76,7 @@ const defaultConfig: TestStateConfig = {
     shape: 'circle',
     direction: 'horizontal',
     showTrail: true,
+    objectColor: '#00d9ff',
   },
   contrast: {
     gridSize: 8,

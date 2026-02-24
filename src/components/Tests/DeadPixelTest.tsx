@@ -10,9 +10,13 @@ interface DeadPixelTestProps {
   autoMode: boolean;
   interval: number;
   isPaused: boolean;
+  customColor: string;
+  useCustomColor: boolean;
   onColorChange: (index: number) => void;
   onAutoModeChange: (auto: boolean) => void;
   onIntervalChange: (interval: number) => void;
+  onCustomColorChange: (color: string) => void;
+  onUseCustomColorChange: (use: boolean) => void;
 }
 
 export function DeadPixelTest({
@@ -20,11 +24,15 @@ export function DeadPixelTest({
   autoMode,
   interval,
   isPaused,
+  customColor,
+  useCustomColor,
   onColorChange,
   onAutoModeChange,
   onIntervalChange,
+  onCustomColorChange,
+  onUseCustomColorChange,
 }: DeadPixelTestProps) {
-  const currentColor = DEAD_PIXEL_COLORS[currentColorIndex];
+  const currentColor = useCustomColor ? customColor : DEAD_PIXEL_COLORS[currentColorIndex];
 
   const nextColor = useCallback(() => {
     onColorChange((currentColorIndex + 1) % DEAD_PIXEL_COLORS.length);
@@ -90,6 +98,30 @@ export function DeadPixelTest({
         </div>
 
         <div className="border-t border-white/10 pt-4 space-y-3">
+          <Toggle
+            checked={useCustomColor}
+            onChange={onUseCustomColorChange}
+            label="Use custom color"
+          />
+          {useCustomColor && (
+            <div className="flex items-center gap-2">
+              <input
+                type="text"
+                value={customColor}
+                onChange={(e) => {
+                  onCustomColorChange(e.target.value);
+                }}
+                placeholder="#FF6600"
+                className="flex-1 bg-[#1a1a1a] border border-white/10 rounded px-2 py-1 text-sm text-white font-mono"
+                maxLength={7}
+              />
+              <div
+                className="w-7 h-7 rounded border border-white/20"
+                style={{ backgroundColor: /^#[0-9A-Fa-f]{6}$/.test(customColor) ? customColor : '#000' }}
+              />
+            </div>
+          )}
+
           <Toggle
             checked={autoMode}
             onChange={onAutoModeChange}

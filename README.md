@@ -7,24 +7,27 @@ A comprehensive web-based screen testing application built with React, TypeScrip
 
 ## 🚀 Features
 
-### 8 Comprehensive Display Tests
+### 9 Comprehensive Display Tests
 
-1. **Dead Pixel Test** - Cycle through solid colors to detect stuck or dead pixels
+1. **Dead Pixel Test** - Cycle through solid colors to detect stuck or dead pixels, with custom hex color support
 2. **Uniformity Test** - Check for backlight bleeding and screen uniformity
-3. **Color Gradient Test** - Detect color banding with adjustable gradient steps
-4. **Response Time Test** - UFO-style moving object test for ghosting detection
+3. **Color Gradient Test** - Detect color banding with up to 4096 gradient steps for ultra-smooth rendering
+4. **Response Time Test** - UFO-style moving object test with customizable colors (presets + hex input)
 5. **Contrast Test** - Checkerboard patterns to evaluate contrast ratios
 6. **Brightness Test** - Window patterns at various brightness levels
-7. **Text Clarity Test** - Font rendering test with adjustable parameters
+7. **Text Clarity Test** - Full-screen tiled text rendering with adjustable font parameters
 8. **Viewing Angle Test** - Evaluate color shift at different viewing angles
+9. **Burn-In Prevention** - Animated pixel-shifting patterns (scrolling bars, pixel shift, wave, spiral, plasma) to protect OLED/plasma displays
 
 ### Key Features
 
-- ✨ **Modern UI** - Dark theme optimized for display testing
-- 🎮 **Keyboard Shortcuts** - Full keyboard control (1-8 for tests, F/F11 for fullscreen, Space to pause)
+- ✨ **Modern UI** - Dark theme with professional SVG logo optimized for display testing
+- 🎮 **Keyboard Shortcuts** - Full keyboard control (1-9 for tests, F/F11 for fullscreen, Space to pause)
 - 📱 **Responsive Design** - Works on desktop and mobile devices
 - 🎯 **Draggable Controls** - Move test option panels anywhere on screen
 - 🔄 **Real-time Adjustments** - Modify test parameters on the fly
+- 👁️ **Auto-Hide Controls** - Control panels fade out after 5 seconds of mouse inactivity in fullscreen, reappear on mouse movement
+- 🎨 **Custom Colors** - Hex color input for Dead Pixel and Response Time tests
 - 💾 **No Installation Required** - Runs directly in your browser
 
 ## 🛠️ Tech Stack
@@ -79,7 +82,7 @@ npm run preview
 
 | Key | Action |
 |-----|--------|
-| `1-8` | Switch between tests |
+| `1-9` | Switch between tests |
 | `F` or `F11` | Toggle fullscreen |
 | `Space` | Pause/Resume test |
 | `R` | Reset current test |
@@ -91,16 +94,16 @@ npm run preview
 ## 🎨 Test Details
 
 ### Dead Pixel Test
-Cycles through 8 solid colors (Red, Green, Blue, White, Black, Cyan, Magenta, Yellow) to help identify stuck or dead pixels. Supports auto-cycle mode with adjustable intervals.
+Cycles through 8 solid colors (Red, Green, Blue, White, Black, Cyan, Magenta, Yellow) to help identify stuck or dead pixels. Supports auto-cycle mode with adjustable intervals. Now includes **custom hex color input** — toggle "Use custom color" and enter any hex code.
 
 ### Uniformity Test
 Displays uniform colors at various brightness levels with optional grid overlay to check for backlight bleeding and uniformity issues.
 
 ### Color Gradient Test
-Renders smooth or stepped gradients in multiple directions to detect color banding. Adjustable from 8 to 256 color steps.
+Renders smooth or stepped gradients in multiple directions to detect color banding. Adjustable from 8 to **4096 color steps** for ultra-smooth rendering that eliminates visible banding.
 
 ### Response Time Test
-Animated moving shapes with motion trails to evaluate pixel response time and detect ghosting or motion blur.
+Animated moving shapes with motion trails to evaluate pixel response time and detect ghosting or motion blur. Features **8 color presets** and **custom hex color input** for the moving object.
 
 ### Contrast Test
 Checkerboard patterns with adjustable grid sizes to test contrast ratios and edge sharpness.
@@ -109,10 +112,20 @@ Checkerboard patterns with adjustable grid sizes to test contrast ratios and edg
 Window patterns at different brightness levels to evaluate peak brightness and uniformity.
 
 ### Text Clarity Test
-Sample text with adjustable font sizes, families, letter spacing, and line height to test subpixel rendering and text sharpness.
+Full-screen tiled text blocks with adjustable font sizes, families, letter spacing, and line height to test subpixel rendering and text sharpness across the entire display.
 
 ### Viewing Angle Test
 Patterns designed to reveal color shift, contrast loss, or brightness changes when viewed from different angles.
+
+### Burn-In Prevention 🛡️
+Animated pixel-shifting patterns designed to exercise all pixels evenly and reduce burn-in risk on OLED and plasma displays. Includes 5 pattern types:
+- **Scrolling Bars** — Moving vertical bars
+- **Pixel Shift** — Checkerboard with circular motion
+- **Wave Pattern** — Overlapping horizontal and vertical sine waves
+- **Spiral** — Full-screen rotating spiral
+- **Plasma Effect** — Dynamic color plasma
+
+Adjustable speed, color cycling, and shift amount. Run for 30–60 minutes for best results.
 
 ## 🌐 Deployment
 
@@ -132,7 +145,7 @@ screen-tester-pro/
 ├── src/
 │   ├── components/
 │   │   ├── Layout/          # Header, Sidebar, Footer
-│   │   ├── Tests/           # 8 test components
+│   │   ├── Tests/           # 9 test components
 │   │   └── UI/              # Reusable UI components
 │   ├── hooks/               # Custom React hooks
 │   ├── utils/               # Utility functions

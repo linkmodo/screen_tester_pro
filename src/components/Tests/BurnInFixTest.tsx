@@ -247,14 +247,16 @@ function drawSpiral(
 ) {
   const centerX = width / 2;
   const centerY = height / 2;
-  const maxRadius = Math.min(width, height) / 2;
+  const maxRadius = Math.sqrt(width * width + height * height) / 2;
+  const totalTurns = 20;
+  const totalAngle = Math.PI * 2 * totalTurns;
   
   ctx.strokeStyle = color;
   ctx.lineWidth = 3;
   ctx.beginPath();
   
-  for (let angle = 0; angle < Math.PI * 8; angle += 0.1) {
-    const radius = (angle / (Math.PI * 8)) * maxRadius;
+  for (let angle = 0; angle < totalAngle; angle += 0.08) {
+    const radius = (angle / totalAngle) * maxRadius;
     const x = centerX + Math.cos(angle + offset / 50) * radius;
     const y = centerY + Math.sin(angle + offset / 50) * radius;
     

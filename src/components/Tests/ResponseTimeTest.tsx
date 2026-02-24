@@ -4,16 +4,29 @@ import { Toggle } from '../UI/Toggle';
 import { CollapsiblePanel } from '../UI/CollapsiblePanel';
 import { SPEED_PRESETS } from '../../utils/constants';
 
+const COLOR_PRESETS = [
+  { value: '#00d9ff', label: 'Cyan' },
+  { value: '#00ff00', label: 'Green' },
+  { value: '#ff00ff', label: 'Magenta' },
+  { value: '#ff0000', label: 'Red' },
+  { value: '#ffaa00', label: 'Orange' },
+  { value: '#ffffff', label: 'White' },
+  { value: '#ffff00', label: 'Yellow' },
+  { value: '#4488ff', label: 'Blue' },
+];
+
 interface ResponseTimeTestProps {
   speed: number;
   shape: 'circle' | 'square' | 'triangle';
   direction: 'horizontal' | 'vertical' | 'diagonal' | 'circular';
   showTrail: boolean;
   isPaused: boolean;
+  objectColor?: string;
   onSpeedChange: (speed: number) => void;
   onShapeChange: (shape: 'circle' | 'square' | 'triangle') => void;
   onDirectionChange: (direction: 'horizontal' | 'vertical' | 'diagonal' | 'circular') => void;
   onShowTrailChange: (show: boolean) => void;
+  onObjectColorChange?: (color: string) => void;
 }
 
 export function ResponseTimeTest({
@@ -22,15 +35,19 @@ export function ResponseTimeTest({
   direction,
   showTrail,
   isPaused,
+  objectColor,
   onSpeedChange,
   onShapeChange,
   onDirectionChange,
   onShowTrailChange,
+  onObjectColorChange,
 }: ResponseTimeTestProps) {
   const [position, setPosition] = useState(0);
+  const [customColor, setCustomColor] = useState(objectColor || '#00d9ff');
   const containerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number>();
   const lastTimeRef = useRef<number>(0);
+  const activeColor = objectColor || '#00d9ff';
 
   useEffect(() => {
     if (isPaused) {
@@ -117,16 +134,15 @@ export function ResponseTimeTest({
         return (
           <div
             key={opacity}
-            style={style}
-            className="rounded-full bg-[#00d9ff] shadow-lg shadow-[#00d9ff]/50"
+            style={{ ...style, backgroundColor: activeColor, boxShadow: `0 10px 15px -3px ${activeColor}80` }}
+            className="rounded-full"
           />
         );
       case 'square':
         return (
           <div
             key={opacity}
-            style={style}
-            className="bg-[#00ff00] shadow-lg shadow-[#00ff00]/50"
+            style={{ ...style, backgroundColor: activeColor, boxShadow: `0 10px 15px -3px ${activeColor}80` }}
           />
         );
       case 'triangle':
@@ -139,8 +155,8 @@ export function ResponseTimeTest({
               height: 0,
               borderLeft: `${size / 2}px solid transparent`,
               borderRight: `${size / 2}px solid transparent`,
-              borderBottom: `${size}px solid #ff00ff`,
-              filter: 'drop-shadow(0 0 10px rgba(255, 0, 255, 0.5))',
+              borderBottom: `${size}px solid ${activeColor}`,
+              filter: `drop-shadow(0 0 10px ${activeColor}80)`,
             }}
           />
         );
@@ -228,6 +244,47 @@ export function ResponseTimeTest({
           onChange={onShowTrailChange}
           label="Show Motion Trail"
         />
+
+        <div>
+          <label className="block text-sm font-medium mb-2">Object Color</label>
+          <div className="flex flex-wrap gap-1.5 mb-2">
+            {COLOR_PRESETS.map((preset) => (
+              <button
+                key={preset.value}
+                onClick={() => {
+                  setCustomColor(preset.value);
+                  onObjectColorChange?.(preset.value);
+                }}
+                className={`w-7 h-7 rounded border-2 transition-all ${
+                  activeColor === preset.value
+                    ? 'border-white scale-110'
+                    : 'border-transparent hover:border-white/50'
+                }`}
+                style={{ backgroundColor: preset.value }}
+                title={preset.label}
+              />
+            ))}
+          </div>
+          <div className="flex items-center gap-2">
+            <input
+              type="text"
+              value={customColor}
+              onChange={(e) => {
+                setCustomColor(e.target.value);
+                if (/^#[0-9A-Fa-f]{6}$/.test(e.target.value)) {
+                  onObjectColorChange?.(e.target.value);
+                }
+              }}
+              placeholder="#00d9ff"
+              className="flex-1 bg-[#1a1a1a] border border-white/10 rounded px-2 py-1 text-sm text-white font-mono"
+              maxLength={7}
+            />
+            <div
+              className="w-7 h-7 rounded border border-white/20"
+              style={{ backgroundColor: activeColor }}
+            />
+          </div>
+        </div>
 
         <p className="text-xs text-gray-400">
           Watch for ghosting or blur behind the moving object. Faster speeds reveal slower response times.

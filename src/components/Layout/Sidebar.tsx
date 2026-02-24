@@ -21,7 +21,7 @@ export function Sidebar({
     <button
       key={test.id}
       onClick={() => onSelectTest(test.id)}
-      className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 text-left mx-0 ${
+      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 text-left ${
         selectedTest === test.id
           ? 'bg-[#00d9ff]/20 text-[#00d9ff] border border-[#00d9ff]/30'
           : 'text-gray-300 hover:bg-[#1a1a1a] hover:text-white'
@@ -46,7 +46,7 @@ export function Sidebar({
         isCollapsed ? 'w-[72px]' : 'w-[280px]'
       }`}
     >
-      <div className="px-4 py-5">
+      <div className="px-3 py-3">
         <button
           onClick={onToggleCollapse}
           className="w-full flex items-center justify-center p-2 rounded-lg text-gray-400 hover:text-white hover:bg-[#1a1a1a] transition-colors mb-4"
