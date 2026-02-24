@@ -9,7 +9,7 @@ interface CollapsiblePanelProps {
 export function CollapsiblePanel({
   title,
   children,
-  autoHideInFullscreen = false,
+  autoHideInFullscreen = true,
 }: CollapsiblePanelProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [position, setPosition] = useState<{ x: number; y: number } | null>(null);
@@ -136,7 +136,7 @@ export function CollapsiblePanel({
       style={positionStyle}
     >
       <div
-        className={`flex items-center justify-between px-4 py-2 cursor-move border-b border-white/10 ${
+        className={`flex items-center justify-between px-5 py-3 cursor-move border-b border-white/10 ${
           isDragging ? 'bg-white/5' : ''
         }`}
         onMouseDown={handleMouseDown}
@@ -177,7 +177,7 @@ export function CollapsiblePanel({
           isCollapsed ? 'max-h-0' : 'max-h-[500px]'
         }`}
       >
-        <div className="p-4 min-w-[300px]">{children}</div>
+        <div className="p-5 min-w-[300px]">{children}</div>
       </div>
     </div>
   );

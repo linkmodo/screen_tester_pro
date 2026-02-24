@@ -13,16 +13,14 @@ interface TextClarityTestProps {
   onLineHeightChange: (height: number) => void;
 }
 
-const sampleText = `The quick brown fox jumps over the lazy dog.
-ABCDEFGHIJKLMNOPQRSTUVWXYZ
-abcdefghijklmnopqrstuvwxyz
-0123456789 !@#$%^&*()_+-=[]{}|;':",.<>?/
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
-
-iIlL1| oO0Q S5$ Z2 B8 G6 rn m vv w`;
+const sampleBlocks = [
+  `The quick brown fox jumps over the lazy dog. ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789 !@#$%^&*()_+-=[]{}|;':",.<>?/`,
+  `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+  `iIlL1| oO0Q S5$ Z2 B8 G6 rn m vv w — Distinguish similar characters: Il1| O0Q S5$ Z2 B8 G6. Check subpixel rendering and anti-aliasing quality across your display.`,
+  `Pack my box with five dozen liquor jugs. How vexingly quick daft zebras jump! The five boxing wizards jump quickly. Sphinx of black quartz, judge my vow.`,
+  `ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789 ¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖרÙÚÛÜÝÞß`,
+  `Whereas recognition of the inherent dignity and of the equal and inalienable rights of all members of the human family is the foundation of freedom, justice and peace in the world.`,
+];
 
 export function TextClarityTest({
   fontSize,
@@ -40,20 +38,34 @@ export function TextClarityTest({
     'monospace': 'ui-monospace, SFMono-Regular, monospace',
   };
 
+  // Generate enough tiles to fill the screen
+  const tileCount = 24;
+  const tiles = Array.from({ length: tileCount }, (_, i) => sampleBlocks[i % sampleBlocks.length]);
+
   return (
     <div className="relative w-full h-full bg-white overflow-auto">
-      <div className="p-8 max-w-4xl mx-auto">
-        <pre
-          className="text-black whitespace-pre-wrap"
-          style={{
-            fontSize: `${fontSize}px`,
-            fontFamily: fontFamilyMap[fontFamily],
-            letterSpacing: `${letterSpacing}px`,
-            lineHeight: lineHeight,
-          }}
-        >
-          {sampleText}
-        </pre>
+      <div
+        className="grid gap-0 w-full min-h-full"
+        style={{
+          gridTemplateColumns: `repeat(auto-fill, minmax(${Math.max(280, fontSize * 18)}px, 1fr))`,
+        }}
+      >
+        {tiles.map((text, i) => (
+          <div
+            key={i}
+            className="border border-gray-200 p-4"
+            style={{
+              fontSize: `${fontSize}px`,
+              fontFamily: fontFamilyMap[fontFamily],
+              letterSpacing: `${letterSpacing}px`,
+              lineHeight: lineHeight,
+              color: i % 2 === 0 ? '#000000' : '#333333',
+              backgroundColor: i % 2 === 0 ? '#ffffff' : '#f8f8f8',
+            }}
+          >
+            {text}
+          </div>
+        ))}
       </div>
 
       <CollapsiblePanel title="Text Clarity Test">

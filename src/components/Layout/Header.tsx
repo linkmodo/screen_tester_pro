@@ -9,15 +9,43 @@ export function Header({ onShowHelp }: HeaderProps) {
   return (
     <header className="fixed top-0 left-0 right-0 h-[60px] bg-[#0f0f0f] border-b border-[#1a1a1a] flex items-center justify-between px-6 z-40">
       <div className="flex items-center gap-3">
-        <div className="w-8 h-8 bg-gradient-to-br from-[#00d9ff] to-[#00ff00] rounded-lg flex items-center justify-center">
-          <span className="text-black font-bold text-sm">ST</span>
+        <div className="w-9 h-9 relative flex items-center justify-center">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* Monitor frame */}
+            <rect x="3" y="4" width="30" height="22" rx="3" stroke="url(#logoGrad)" strokeWidth="2" fill="none" />
+            {/* Screen inner */}
+            <rect x="6" y="7" width="24" height="16" rx="1.5" fill="#0f0f0f" />
+            {/* Pixel grid */}
+            <rect x="8" y="9" width="4" height="4" rx="0.5" fill="#00d9ff" opacity="0.9" />
+            <rect x="13" y="9" width="4" height="4" rx="0.5" fill="#00ff00" opacity="0.9" />
+            <rect x="18" y="9" width="4" height="4" rx="0.5" fill="#ff3366" opacity="0.7" />
+            <rect x="23" y="9" width="4" height="4" rx="0.5" fill="#ffaa00" opacity="0.7" />
+            <rect x="8" y="14" width="4" height="4" rx="0.5" fill="#aa44ff" opacity="0.7" />
+            <rect x="13" y="14" width="4" height="4" rx="0.5" fill="#ffffff" opacity="0.5" />
+            <rect x="18" y="14" width="4" height="4" rx="0.5" fill="#00d9ff" opacity="0.6" />
+            <rect x="23" y="14" width="4" height="4" rx="0.5" fill="#00ff00" opacity="0.6" />
+            {/* Stand */}
+            <path d="M14 26L13 30H23L22 26" stroke="url(#logoGrad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <line x1="11" y1="30" x2="25" y2="30" stroke="url(#logoGrad)" strokeWidth="1.5" strokeLinecap="round" />
+            {/* Checkmark overlay */}
+            <circle cx="27" cy="27" r="6" fill="#0f0f0f" stroke="#00ff00" strokeWidth="1.5" />
+            <path d="M24 27L26 29L30 25" stroke="#00ff00" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <defs>
+              <linearGradient id="logoGrad" x1="3" y1="4" x2="33" y2="30" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#00d9ff" />
+                <stop offset="1" stopColor="#00ff00" />
+              </linearGradient>
+            </defs>
+          </svg>
         </div>
-        <h1 className="text-xl font-semibold text-white">
-          Screen Tester <span className="text-[#00d9ff]">Pro</span>
-          <span className="ml-2 text-xs bg-gradient-to-r from-[#00d9ff] to-[#00ff00] text-black px-2 py-0.5 rounded-full font-bold">
-            Burn-In Prevention
+        <div className="flex flex-col">
+          <h1 className="text-lg font-bold text-white leading-tight tracking-tight">
+            Screen Tester <span className="text-[#00d9ff]">Pro</span>
+          </h1>
+          <span className="text-[10px] font-semibold uppercase tracking-widest text-[#00ff00]/80 leading-tight">
+            Display &amp; Burn-In Prevention
           </span>
-        </h1>
+        </div>
       </div>
 
       <div className="flex items-center gap-4">

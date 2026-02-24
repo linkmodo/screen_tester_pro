@@ -84,7 +84,7 @@ export function BurnInFixTest({ settings, onSettingsChange }: BurnInFixTestProps
     <div className="relative w-full h-full bg-black">
       <canvas ref={canvasRef} className="absolute inset-0" />
 
-      <CollapsiblePanel title="Burn-In Prevention" autoHideInFullscreen={true}>
+      <CollapsiblePanel title="Burn-In Prevention">
         <div className="flex flex-col gap-4">
           <div>
             <label className="block text-sm font-medium mb-2">Pattern Type</label>
